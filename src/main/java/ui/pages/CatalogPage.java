@@ -27,6 +27,9 @@ public class CatalogPage extends BasePageObject {
     @FindBy(xpath = hoverPriceContainerXpath + "/span[@class='price-percent-reduction']")
     private WebElement pricePercentReductionSpan;
 
+    @FindBy(xpath = "//li[contains(@class,'hovered')]//a[@title=\"Add to cart\"]")
+    private WebElement addToCartButton;
+
     //Xpath used to get any item in BestSellers section using the Item Name
     private String bestSellersItemXpath = "//ul[@id='blockbestsellers']//a[contains(text(),'$itemName')]";
 
@@ -35,6 +38,7 @@ public class CatalogPage extends BasePageObject {
         waitUntilPageIsLoaded();
     }
 
+    @Override
     public void waitUntilPageIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(bestSellerSectionButton));
     }
@@ -59,5 +63,17 @@ public class CatalogPage extends BasePageObject {
 
     public String getPricePercentReduction() {
         return pricePercentReductionSpan.getText();
+    }
+
+    public void addItemToCart(String itemName) {
+        hoverItem(itemName);
+        LayerCartPage layerCartPage = clickOnAddToCartButton();
+        layerCartPage.clickOnContinueShoppingButton();
+    }
+
+    private LayerCartPage clickOnAddToCartButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
+        addToCartButton.click();
+        return new LayerCartPage();
     }
 }

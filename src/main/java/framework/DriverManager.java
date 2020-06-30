@@ -7,6 +7,7 @@ package framework;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.TimeUnit;
 
 public class DriverManager {
@@ -14,22 +15,17 @@ public class DriverManager {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
-    public static DriverManager getInstance()
-    {
-        if(instance == null)
-        {
+    public static DriverManager getInstance() {
+        if (instance == null) {
             instance = new DriverManager();
-            if(driver == null)
-            {
+            if (driver == null) {
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
                 driver = new ChromeDriver();
                 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                 driver.manage().window().maximize();
-                driver.get("http://automationpractice.com/index.php");
             }
-            if(wait == null)
-            {
-                wait = new WebDriverWait(driver,20);
+            if (wait == null) {
+                wait = new WebDriverWait(driver, 20);
             }
 
         }
@@ -38,6 +34,7 @@ public class DriverManager {
 
     /**
      * get a Wait instance
+     *
      * @return a WebDriverWait instance
      */
     public WebDriverWait getWait() {
@@ -46,6 +43,7 @@ public class DriverManager {
 
     /**
      * get the WebDriver instance
+     *
      * @return a WebDriver instance
      */
     public WebDriver getWebDriver() {
@@ -55,9 +53,9 @@ public class DriverManager {
     /**
      * Quit the web explorer and remove the driver instance
      */
-    public void quit()
-    {
+    public void quit() {
         driver.quit();
         driver = null;
+        instance = null;
     }
 }

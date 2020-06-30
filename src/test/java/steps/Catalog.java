@@ -34,7 +34,7 @@ public class Catalog {
         catalogPage.hoverItem(itemName);
     }
 
-    @Then("for a old price of {string} should show a {string} discount")
+    @Then("for a old price of {string} is shown a {string} discount")
     public void forARegularPriceOfShouldShowADiscount(String expectedOldPrice, String expectedDiscount) {
 
         String expectedPrice;
@@ -52,5 +52,10 @@ public class Catalog {
         Assert.assertEquals(catalogPage.getOldPrice(), expectedOldPrice);
         Assert.assertEquals(catalogPage.getPricePercentReduction(), expectedDiscount);
         Assert.assertEquals(catalogPage.getPrice(), expectedPrice);
+    }
+
+    @When("add {string} item to Cart")
+    public void addItemToCart(String itemName) {
+        catalogPage.addItemToCart(itemName);
     }
 }
